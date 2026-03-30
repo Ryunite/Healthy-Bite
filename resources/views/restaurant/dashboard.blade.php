@@ -62,7 +62,7 @@
                     @foreach ($menus as $menu)
                         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                             <div class="relative h-48 overflow-hidden">
-                                <img src="/storage/assets/img/menus/{{ $menu->menu_image}}" alt="{{ $menu->name }}"
+                                <img src="{{ asset('storage/menus/' . $menu->menu_image) }}" alt="{{ $menu->name }}"
                                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
                                 <span class="absolute top-2 right-2 text-xs px-2 py-1 rounded-full font-semibold
                                     {{ $menu->isAvailable ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">

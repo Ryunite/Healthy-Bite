@@ -125,11 +125,11 @@
                     <img src="/storage/assets/img/logos/gopay.png" alt="Partner"
                         class="h-20 opacity-60 hover:opacity-100 transition">
                     <img src="/storage/assets/img/logos/ovo.png" alt="Partner"
-                        class="h-10 opacity-60 hover:opacity-100 transition">
+                        class="h-20 opacity-60 hover:opacity-100 transition">
                     <img src="/storage/assets/img/logos/gopay.png" alt="Partner"
                         class="h-20 opacity-60 hover:opacity-100 transition">
                     <img src="/storage/assets/img/logos/ovo.png" alt="Partner"
-                        class="h-10 opacity-60 hover:opacity-100 transition">
+                        class="h-20 opacity-60 hover:opacity-100 transition">
                     <img src="/storage/assets/img/logos/gopay.png" alt="Partner"
                         class="h-20 opacity-60 hover:opacity-100 transition">
                 </div>
@@ -211,7 +211,7 @@
                             <div
                                 class="flex-shrink-0 w-72 bg-white rounded-2xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300">
                                 <div class="relative h-48 overflow-hidden">
-                                    <img src="/storage/assets/img/menus/{{ $menu->menu_image }}"
+                                    <img src="{{ asset('storage/menus/' . $menu->menu_image) }}"
                                         alt="{{ $menu->name }}" class="w-full h-full object-cover">
 
                                     <div
