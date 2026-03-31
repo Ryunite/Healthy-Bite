@@ -137,7 +137,7 @@
                 @forelse ($recommendedMenus as $menu)
                     <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all">
                         <div class="relative">
-                            <img src="/storage/assets/img/menus/{{ $menu->menu_image }}" alt="{{ $menu->name }}"
+                            <img src="{{ asset('storage/menus/' . $menu->menu_image) }}" alt="{{ $menu->name }}"
                                 class="w-full h-32 object-cover">
                             <button
                                 class="absolute top-2 right-2 p-1.5 bg-white/80 rounded-full backdrop-blur-sm hover:bg-white transition">
