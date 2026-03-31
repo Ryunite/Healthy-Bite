@@ -67,7 +67,7 @@
                     </div>
 
                     <!-- Category -->
-                    <div>
+                    <!-- <div>
                         <label for="Customer_category" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
                         <div class="relative">
                             <input id="Customer_category" type="text" name="Customer_category" required
@@ -80,12 +80,12 @@
                                 </svg>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Location -->
-                    <div>
+                    <!-- <div>
                         <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                        <div class="relative">
+                        <div class=" relative">
                             <input id="location" type="text" name="location" required value="{{ old('location') }}"
                                 class="w-full bg-white pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 placeholder="Customer address">
@@ -96,7 +96,7 @@
                                 </svg>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- Phone Number -->
                     <div>
