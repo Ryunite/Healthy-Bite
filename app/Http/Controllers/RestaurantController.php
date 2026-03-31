@@ -84,21 +84,21 @@ class RestaurantController extends Controller
 
         $query = Order::with(['customer', 'listOrders.menu'])
             ->where('restaurants_id', Auth::guard('admin')->id())
-            ->latest(); 
+            ->latest();
 
         if ($request->has('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('id', 'like', "%{$search}%")
-                ->orWhereHas('customer', function($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-                });
+                    ->orWhereHas('customer', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
             });
         }
 
         $allOrders = $query->paginate($perPage);
-        
-        return view('restaurant.orders.index', compact('allOrders','orders'));
+
+        return view('restaurant.orders.index', compact('allOrders', 'orders'));
     }
 
     public function topOrders()
@@ -148,8 +148,22 @@ class RestaurantController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $order = Order::findOrFail($id);
-        $order->status = $request->input('status');
+        $oldStatus = $order->status;
+        $newStatus = $request->input('status');
+        // $order->status = $request->input('status');
+
+        $order->status = $newStatus;
         $order->save();
+
+        if ($newStatus == 'cancelled' && $oldStatus != 'cancelled') {
+
+            $customer = $order->customer;
+
+            if ($customer) {
+                $customer->balance += $order->total_price;
+                $customer->save();
+            }
+        }
 
         return back()->with('success', 'Status berhasil diubah.');
     }
@@ -516,13 +530,13 @@ class RestaurantController extends Controller
 
         // 1. Total Omzet (dari pesanan yang sudah selesai)
         $totalOmzet = Order::where('restaurants_id', $restaurantId)
-                           ->where('status', 'completed')
-                           ->sum('total_price');
+            ->where('status', 'completed')
+            ->sum('total_price');
 
         // 2. Transaksi Terbanyak (jumlah pesanan yang selesai)
         $totalTransaksi = Order::where('restaurants_id', $restaurantId)
-                               ->where('status', 'completed')
-                               ->count();
+            ->where('status', 'completed')
+            ->count();
 
         // 3. Member Teraktif (berdasarkan jumlah order)
         $memberTeraktif = Order::where('restaurants_id', $restaurantId)
@@ -545,22 +559,26 @@ class RestaurantController extends Controller
 
         // 5. Produk Terlaris
         $produkTerlaris = Menu::where('restaurants_id', $restaurantId)
-            ->withCount(['listOrders as sales_count' => function ($query) {
-                $query->whereHas('order', function($q){
-                    $q->where('status', 'completed');
-                });
-            }])
+            ->withCount([
+                'listOrders as sales_count' => function ($query) {
+                    $query->whereHas('order', function ($q) {
+                        $q->where('status', 'completed');
+                    });
+                }
+            ])
             ->orderBy('sales_count', 'desc')
             ->take(5)
             ->get();
 
         // 6. Produk yang Perlu Diendorse (Paling sedikit terjual)
         $produkPerluEndorse = Menu::where('restaurants_id', $restaurantId)
-            ->withCount(['listOrders as sales_count' => function ($query) {
-                $query->whereHas('order', function($q){
-                    $q->where('status', 'completed');
-                });
-            }])
+            ->withCount([
+                'listOrders as sales_count' => function ($query) {
+                    $query->whereHas('order', function ($q) {
+                        $q->where('status', 'completed');
+                    });
+                }
+            ])
             ->orderBy('sales_count', 'asc')
             ->take(5)
             ->get();
