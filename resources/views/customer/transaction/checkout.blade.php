@@ -45,7 +45,7 @@
                         <div class="p-6 hover:bg-gray-50 transition-colors duration-150">
                             <div class="flex">
                                 <div class="flex-shrink-0 mr-4">
-                                    <img src="/storage/assets/img/menus/{{ $item['menu']['menu_image'] }}"
+                                    <img src="/storage/menus/{{ $item['menu']['menu_image'] }}"
                                         alt="{{ $item['menu']['name'] }}"
                                         class="w-20 h-20 object-cover rounded-lg border border-gray-200">
                                 </div>

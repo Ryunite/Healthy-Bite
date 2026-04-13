@@ -429,7 +429,7 @@
         <div class="border border-gray-200 rounded-lg p-4 mb-4 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
             <div class="flex">
                 <div class="flex-shrink-0 mr-4">
-                    <img src="/storage/assets/img/menus/${item.menu.menu_image}" alt="${item.menu.name}" class="h-16 w-16 object-cover rounded-md border border-gray-200">
+                    <img src="/storage/menus/${item.menu.menu_image}" alt="${item.menu.name}" class="h-16 w-16 object-cover rounded-md border border-gray-200">
                 </div>
                 <div class="flex-1 min-w-0">
                     <div class="flex justify-between">
